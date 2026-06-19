@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爱游戏 · 杂志式导览</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+      background: #f5f3ef;
+      color: #2a2825;
+      line-height: 1.7;
+      padding: 2rem 1.2rem;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* hero 横幅 */
+    .hero {
+      background: #eae5db;
+      border-radius: 40px 40px 20px 20px;
+      padding: 4rem 2rem 3.2rem;
+      margin-bottom: 3.2rem;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.02);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #3e3a35;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .shortline {
+      width: 48px;
+      height: 3px;
+      background: #b3aa9b;
+      margin: 0.8rem auto 1.2rem;
+      border-radius: 9px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #5b554c;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* 背景说明卡片 */
+    .context-card {
+      background: #ffffffd9;
+      backdrop-filter: blur(2px);
+      border-radius: 28px;
+      padding: 2.2rem 2rem;
+      margin-bottom: 2.8rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+
+    .context-card h2 {
+      font-size: 1.4rem;
+      font-weight: 480;
+      color: #3d3730;
+      margin-bottom: 1rem;
+      border-left: 4px solid #c5b9a6;
+      padding-left: 1rem;
+    }
+
+    .context-card p {
+      font-size: 0.98rem;
+      color: #49443d;
+      margin-bottom: 1rem;
+    }
+
+    .context-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 三段介绍 (杂志式段落) */
+    .triptych {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .triptych section {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 1.8rem 1.8rem 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+      border: 1px solid #e7e2d9;
+    }
+
+    .triptych section h3 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #4c453c;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .triptych section h3::before {
+      content: "·";
+      font-weight: 300;
+      color: #b1a48f;
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .triptych section p {
+      font-size: 0.96rem;
+      color: #4c463e;
+      margin-bottom: 0.6rem;
+    }
+
+    .triptych section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 页尾访问提示 */
+    .footer-note {
+      background: #ece7e0;
+      border-radius: 48px 48px 24px 24px;
+      padding: 2.5rem 2rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+
+    .footer-note p {
+      font-size: 1rem;
+      color: #3f3a33;
+      max-width: 500px;
+      margin: 0 auto 0.6rem;
+    }
+
+    .footer-note .link-sentence {
+      font-size: 1.05rem;
+      margin-top: 0.8rem;
+    }
+
+    .footer-note a {
+      color: #3d5f5c;
+      text-decoration: none;
+      font-weight: 480;
+      border-bottom: 1px dashed #b5aaa0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .footer-note a:hover {
+      color: #1f3b38;
+      border-bottom-color: #1f3b38;
+    }
+
+    .small-meta {
+      font-size: 0.82rem;
+      color: #7b7368;
+      margin-top: 1.6rem;
+      letter-spacing: 0.3px;
+      border-top: 1px solid #dbd2c5;
+      padding-top: 1.2rem;
+      display: inline-block;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 480px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+      .hero {
+        padding: 3rem 1.2rem 2.5rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .context-card {
+        padding: 1.6rem 1.2rem;
+      }
+      .triptych section {
+        padding: 1.4rem 1.2rem;
+      }
+      .footer-note {
+        padding: 2rem 1.2rem;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .triptych section h3::before {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- 首页横幅 hero -->
+    <header class="hero">
+      <h1>爱游戏</h1>
+      <div class="shortline"></div>
+      <p>一份安静的导览 · 从整体上了解这个网站正在做的事</p>
+    </header>
+
+    <!-- 背景说明 -->
+    <div class="context-card">
+      <h2>为什么会有这个网站</h2>
+      <p>
+        当你在浏览器里输入一个陌生地址，第一眼看到的内容往往决定了你对它的判断。<strong>爱游戏</strong> 并不打算用大幅弹窗或动态广告来迎接你，而是将自身定位为一个信息整合的起点。
+      </p>
+      <p>
+        网站背后的逻辑很简单：为那些想快速识别「这个平台到底用来做什么」的人，提供一段平实的说明。没有夸张的修饰，只有对自身功能的叙述。
+      </p>
+    </div>
+
+    <!-- 三段自然介绍（杂志专题式） -->
+    <div class="triptych">
+      <section>
+        <h3>从资讯到索引</h3>
+        <p>
+          很多时候用户需要的并不是另一个充满推送的门户，而是一个能清晰标注内容方向的索引。<a href="https://cnapp-i-game.com.cn">爱游戏</a> 在设计之初就偏向「工具化」——把游戏相关的信息聚合、归类，用相对克制的排版呈现出来。
+        </p>
+        <p>
+          你在这里看不到横幅弹窗，也不会被强制引导至某些页面。每个模块都保留了选择空间。
+        </p>
+      </section>
+
+      <section>
+        <h3>场景与边界</h3>
+        <p>
+          如果你正在寻找一款游戏的简介、版本动态，或是某个玩法的简单说明，这里或许能提供一个入口。它不替代任何官方文档或社区论坛，而是扮演一个「安静的中转站」。
+        </p>
+        <p>
+          网站的内容更新频率不高，但每条信息都经过校对。对效率有所期待的用户会发现，这里没有多余的信息噪音。
+        </p>
+      </section>
+
+      <section>
+        <h3>保持直接</h3>
+        <p>
+          无论是新访客还是老用户，都能在首页快速判断这个网站是否与自己的需求匹配。页面结构只有三个层次：标题、一段背景介绍、以及几个独立的话题段落。没有隐藏菜单，没有复杂的分类树。
+        </p>
+        <p>
+          这种直白的布局也反映出运营者的态度——信任用户的判断力，而不是用视觉把戏留住视线。
+        </p>
+      </section>
+    </div>
+
+    <!-- 页尾访问提示（自然融入链接） -->
+    <div class="footer-note">
+      <p>
+        如果你想进一步了解网站的实际内容与结构，可以前往 
+        <a href="https://cnapp-i-game.com.cn">爱游戏</a> 
+        直接浏览。首页的每个入口都保持相同的克制风格，没有多余的跳转干扰。
+      </p>
+      <p class="link-sentence">
+        或者说，这更像一个安静的起点——你随时可以离开，也随时可以回来。
+      </p>
+      <div class="small-meta">
+        · 杂志专题式导览 · 爱游戏
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

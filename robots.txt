@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://seindra1.github.io/cnapp-i-game-com-cn/sitemap.xml
