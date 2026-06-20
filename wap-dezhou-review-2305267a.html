@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德州扑克游戏 | 轻松上手 随时开局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f4f6f9;
+            color: #1e2a3a;
+            line-height: 1.6;
+            padding: 0 16px 40px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ---------- 深色头图 ---------- */
+        .hero {
+            background: linear-gradient(145deg, #0b141f 0%, #1b2b3f 100%);
+            border-radius: 0 0 32px 32px;
+            padding: 60px 24px 48px;
+            margin: 0 -16px 40px;
+            text-align: center;
+            color: #e8edf4;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.85;
+        }
+
+        .hero .tagline {
+            margin-top: 24px;
+            display: inline-block;
+            background: rgba(255,255,255,0.08);
+            padding: 8px 22px;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(2px);
+        }
+
+        /* ---------- 信息卡片式布局 ---------- */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 48px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #dce3ed;
+            color: #0d1b2a;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px 22px 22px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #0f1e30;
+        }
+
+        .card p, .card li {
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 12px;
+        }
+
+        .card ul li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #b22234;
+            font-weight: bold;
+        }
+
+        /* 强调色链接 */
+        a {
+            color: #b22234;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: #b22234;
+            color: #8b1a1a;
+        }
+
+        .link-embed {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin: 32px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border-left: 4px solid #b22234;
+            font-size: 1rem;
+        }
+
+        .link-embed p {
+            margin: 0;
+        }
+
+        /* 适合人群列表 */
+        .audience-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .audience-tag {
+            background: #eef2f7;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #1e2a3a;
+            border: 1px solid #d6dee9;
+        }
+
+        /* FAQ 摘要 */
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 26px;
+            margin: 36px 0 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .faq-mini details {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #e6ecf3;
+            padding-bottom: 10px;
+        }
+
+        .faq-mini details:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 0;
+            color: #0f1e30;
+        }
+
+        .faq-mini summary::marker {
+            color: #b22234;
+        }
+
+        .faq-mini p {
+            margin-top: 8px;
+            color: #3a4b5e;
+            font-size: 0.92rem;
+            padding-left: 6px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero {
+                padding: 40px 16px 36px;
+                border-radius: 0 0 24px 24px;
+            }
+            .card {
+                padding: 22px 16px;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .hero {
+                padding: 72px 32px 56px;
+            }
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 56px;
+            font-size: 0.85rem;
+            color: #7a8a9e;
+            border-top: 1px solid #dce3ed;
+            padding-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 深色头图 -->
+        <header class="hero">
+            <h1>德州扑克 · 随时开局</h1>
+            <p>稳定、清爽的线上牌桌，适合休闲与进阶玩家。不用下载，打开浏览器就能加入。</p>
+            <span class="tagline">♠ 每日活跃桌 · 公平匹配 ♥</span>
+        </header>
+
+        <!-- 用途卡片 / 主视觉 -->
+        <section>
+            <h2 class="section-title">为什么选这个入口</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎯 直接开始</h3>
+                    <p>无需注册流程，进入页面即可看到当前牌桌。适合想快速热身、碎片时间来一局的玩家。</p>
+                    <ul>
+                        <li>低门槛上手</li>
+                        <li>无额外插件</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>📱 移动优先</h3>
+                    <p>针对手机屏幕优化，按钮和牌面信息清晰。等车、休息时打开，操作顺手不局促。</p>
+                    <ul>
+                        <li>适配主流浏览器</li>
+                        <li>轻量加载</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🔁 自然匹配</h3>
+                    <p>系统根据当前在线人数自动分配座位，减少等待。你可以随时起身，没有压力。</p>
+                    <ul>
+                        <li>快速轮转</li>
+                        <li>旁观模式</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 适合人群 + 自然链接段落 -->
+        <section>
+            <h2 class="section-title">适合这样的你</h2>
+            <div class="card" style="padding: 24px;">
+                <div class="audience-list">
+                    <span class="audience-tag">♟ 新手熟悉规则</span>
+                    <span class="audience-tag">🧠 想练习读牌</span>
+                    <span class="audience-tag">⏳ 碎片时间休闲</span>
+                    <span class="audience-tag">🤝 朋友线上约局</span>
+                    <span class="audience-tag">📊 观察不同打法</span>
+                </div>
+                <p style="margin-top: 20px;">
+                    无论你是刚接触规则，还是想找一个稳定的练习环境，这里的节奏都比较友好。
+                    如果你已经玩过一段时间，也可以把它当作备用牌桌——打开即玩，不用额外社交。
+                </p>
+                <!-- 关键链接：自然嵌入句子，文字严格等于“德州扑克游戏” -->
+                <div class="link-embed">
+                    <p>
+                        想直接体验？站点名称就是 <a href="https://wap-dezhou.com">德州扑克游戏</a>，
+                        点进去就能看到当前牌桌列表。界面以实用为主，没有复杂引导。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 场景说明 + 提示 -->
+        <section>
+            <h2 class="section-title">常见场景</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>☕ 午间短局</h3>
+                    <p>20 分钟左右一局，不耽误下午工作。适合边喝东西边玩，放松一下脑筋。</p>
+                </div>
+                <div class="card">
+                    <h3>📖 学习观察</h3>
+                    <p>旁观高手桌的决策过程，看看不同位置的下注思路。不用自己买入，零成本学习。</p>
+                </div>
+                <div class="card">
+                    <h3>🌙 晚间放松</h3>
+                    <p>睡前几手牌，节奏由你自己控制。没有强制任务，随时可以退出。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ 摘要 -->
+        <section class="faq-mini">
+            <h3 style="font-weight:500; margin-bottom: 16px;">❓ 常见疑问</h3>
+            <details>
+                <summary>需要下载客户端吗？</summary>
+                <p>完全不需要。所有操作都在浏览器内完成，适合快速体验。当然，稳定的网络会让牌局更流畅。</p>
+            </details>
+            <details>
+                <summary>有新手教程吗？</summary>
+                <p>页面本身保持简洁，但规则提示会在牌局中显示。建议先了解基本手牌大小，更容易上手。</p>
+            </details>
+            <details>
+                <summary>手机和电脑都能用吗？</summary>
+                <p>是的，布局会自动适应屏幕。推荐使用最新版 Chrome、Safari 或 Edge 以获得最佳体验。</p>
+            </details>
+            <details>
+                <summary>游戏公平性如何？</summary>
+                <p>采用标准洗牌算法，每局牌面随机。你可以观察发牌记录，环境相对透明。</p>
+            </details>
+        </section>
+
+        <!-- 结尾区域：再次自然提及链接（可重复但文本必须严格相等） -->
+        <div style="background: #fff; border-radius: 20px; padding: 24px; margin-top: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <p style="margin-bottom: 6px;">
+                如果你想找一个稳定入口，不妨把 
+                <a href="https://wap-dezhou.com">德州扑克游戏</a> 
+                加入书签。每次打开都是同样的界面，没有弹窗干扰。
+            </p>
+            <p style="color: #4a5c72; font-size: 0.9rem; margin-top: 14px;">
+                * 请根据自己时间合理安排游戏时长，享受过程比结果更重要。
+            </p>
+        </div>
+
+        <div class="footer-note">
+            © 信息介绍页 · 展示用 · 内容仅供了解
+        </div>
+
+    </div>
+</body>
+</html>
