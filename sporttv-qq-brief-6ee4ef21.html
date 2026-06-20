@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>NBA直播 · 站点介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #ffd977 0%, #fbbf24 40%, #f59e0b 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.2rem;
+            line-height: 1.6;
+            color: #2a241e;
+        }
+
+        .page-wrapper {
+            max-width: 980px;
+            width: 100%;
+            margin: 2rem auto;
+        }
+
+        /* 主白色卡片容器 */
+        .card-container {
+            background: #fffaf5;
+            border-radius: 48px 16px 48px 16px;
+            box-shadow: 0 20px 40px -12px rgba(120, 70, 10, 0.30), 0 8px 20px rgba(0,0,0,0.05);
+            padding: 2.8rem 2rem 3rem;
+            transition: box-shadow 0.2s ease;
+        }
+
+        @media (min-width: 640px) {
+            .card-container {
+                padding: 3.6rem 3.5rem 3.8rem;
+                border-radius: 56px 20px 56px 20px;
+            }
+        }
+
+        /* hero / 主视觉 */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 2.4rem;
+        }
+
+        .hero-section h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #b45309, #d97706);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-section .tagline {
+            font-size: 1.1rem;
+            color: #6b5340;
+            font-weight: 400;
+            border-bottom: 2px dotted #fcd34d;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* 介绍段落：站点定位与可信说明 */
+        .intro-block {
+            background: #fef7ed;
+            border-radius: 28px;
+            padding: 1.6rem 1.8rem;
+            margin: 1.8rem 0 2.2rem;
+            box-shadow: inset 0 1px 4px rgba(255, 223, 150, 0.4);
+        }
+
+        .intro-block p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .intro-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-block a,
+        .inline-link {
+            color: #b45309;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 2px solid #fbbf24;
+            padding-bottom: 1px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .intro-block a:hover,
+        .inline-link:hover {
+            border-bottom-color: #b45309;
+            color: #7c3a0a;
+        }
+
+        /* 卡片网格 —— 用途 & 适合人群 (混排) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        @media (min-width: 640px) {
+            .cards-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.8rem;
+            }
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 1.4rem 1.8rem;
+            box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(251, 191, 36, 0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 22px -10px rgba(180, 83, 9, 0.18);
+        }
+
+        .info-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-card h3::before {
+            content: "🏀";
+            font-size: 1.3rem;
+            margin-right: 0.2rem;
+        }
+
+        .info-card p {
+            color: #3e342c;
+            font-size: 0.98rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.6rem;
+        }
+
+        .info-card li {
+            padding: 0.2rem 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .info-card li::before {
+            content: "▸";
+            color: #d97706;
+            font-weight: bold;
+        }
+
+        /* 特色卡片 —— 可做场景/提示混搭 */
+        .feature-highlight {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.8rem;
+            background: #fff3e0;
+            border-radius: 40px 16px 40px 16px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 1.6rem;
+            border: 1px solid #fbbf24;
+        }
+
+        .feature-item {
+            flex: 1 1 160px;
+        }
+
+        .feature-item .label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            color: #a16207;
+            text-transform: uppercase;
+            margin-bottom: 0.15rem;
+        }
+
+        .feature-item .value {
+            font-size: 1.0rem;
+            font-weight: 500;
+            color: #4a3728;
+        }
+
+        /* 自然链接段落（非卡片，纯文字） */
+        .link-paragraph {
+            background: white;
+            border-radius: 20px;
+            padding: 1.4rem 1.6rem;
+            margin: 1.8rem 0 0.2rem;
+            border-left: 6px solid #f59e0b;
+            font-size: 1.02rem;
+        }
+
+        .link-paragraph a {
+            color: #b45309;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #fbbf24;
+            transition: border-color 0.2s, background 0.1s;
+            padding: 0 0.1rem;
+        }
+
+        .link-paragraph a:hover {
+            border-bottom-color: #92400e;
+            background: #fef3c7;
+        }
+
+        /* FAQ 摘要（极简） */
+        .faq-mini {
+            margin: 2rem 0 0.2rem;
+            padding: 0.2rem 0;
+        }
+
+        .faq-mini details {
+            background: #fdf6ee;
+            border-radius: 20px;
+            padding: 0.8rem 1.4rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #fde68a;
+            transition: background 0.15s;
+        }
+
+        .faq-mini details[open] {
+            background: #fef9ef;
+        }
+
+        .faq-mini summary {
+            font-weight: 600;
+            color: #7c3a0a;
+            cursor: pointer;
+            padding: 0.2rem 0;
+            font-size: 1rem;
+        }
+
+        .faq-mini summary::marker {
+            color: #d97706;
+        }
+
+        .faq-mini .answer {
+            margin-top: 0.5rem;
+            color: #4b3a2e;
+            font-size: 0.95rem;
+            padding-left: 0.2rem;
+            border-left: 3px solid #fbbf24;
+            padding-left: 0.8rem;
+        }
+
+        /* 页脚 */
+        .footnote {
+            margin-top: 2.6rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6f5c48;
+            border-top: 1px dashed #fcd34d;
+            padding-top: 1.5rem;
+        }
+
+        .footnote a {
+            color: #7c3a0a;
+            text-decoration: underline wavy #fbbf24 1.5px;
+            text-underline-offset: 4px;
+        }
+
+        /* 响应式修补 */
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 1.8rem;
+            }
+            .card-container {
+                padding: 1.6rem 1rem 2rem;
+            }
+            .intro-block {
+                padding: 1.2rem 1rem;
+            }
+            .feature-highlight {
+                flex-direction: column;
+                gap: 0.6rem;
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="card-container">
+
+        <!-- hero 主视觉 -->
+        <div class="hero-section">
+            <h1>NBA直播 · 观赛指引</h1>
+            <div class="tagline">真实赛事 · 清晰路径 · 一点叙述</div>
+        </div>
+
+        <!-- 站点介绍 + 可信说明 自然段落 -->
+        <div class="intro-block">
+            <p>
+                <strong>sporttv-qq.com</strong> 是一个以篮球赛事转播为线索的站点，聚合了多路直播信号与实时数据。不少球迷通过它追踪常规赛与季后赛的进程，界面简洁，没有过多干扰信息。作为信息索引页，它不生产信号，而是帮你筛选出当下可用的直播渠道。
+            </p>
+            <p>
+                站点本身保持中立，不要求注册，也不嵌入额外弹窗。无论你是想快速了解比赛时间，还是寻找稳定的观看方式，这里都提供了一种轻量的选择。当然，任何直播链接都可能因版权或网络原因调整，建议在开赛前稍作确认。
+            </p>
+            <p>
+                说明：本站与 NBA 官方无直接附属关系，仅作为观赛信息参考。如果你正在寻找一个可靠的起点，不妨从下面提到的 <a href="https://sporttv-qq.com">NBA直播</a> 页面开始浏览。
+            </p>
+        </div>
+
+        <!-- 用途卡片 + 适合人群（混排） -->
+        <div class="cards-grid">
+            <div class="info-card">
+                <h3>用途 · 场景</h3>
+                <p>常见的几种使用方式：</p>
+                <ul>
+                    <li>查看当天比赛直播场次与时间</li>
+                    <li>切换不同解说频道或画质</li>
+                    <li>赛后快速浏览集锦与回放</li>
+                    <li>移动端或桌面浏览器均可直接打开</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>适合人群</h3>
+                <p>无论你是哪种球迷，都能找到舒服的用法：</p>
+                <ul>
+                    <li>习惯赛前才找链接的随性观众</li>
+                    <li>不想安装额外软件的轻量用户</li>
+                    <li>关注多支球队、需要快速切换的球迷</li>
+                    <li>偶尔陪朋友看球、希望快速上手的路人</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 小特色块：附加提示/场景 -->
+        <div class="feature-highlight">
+            <div class="feature-item">
+                <span class="label">直播覆盖</span>
+                <span class="value">常规赛 · 季后赛 · 附加赛</span>
+            </div>
+            <div class="feature-item">
+                <span class="label">兼容性</span>
+                <span class="value">PC / 平板 / 手机浏览器</span>
+            </div>
+            <div class="feature-item">
+                <span class="label">提示</span>
+                <span class="value">建议提前10分钟测试链接</span>
+            </div>
+        </div>
+
+        <!-- 自然链接段落（嵌入句子里） -->
+        <div class="link-paragraph">
+            实际上，不少用户习惯在赛前直接打开 
+            <a href="https://sporttv-qq.com">NBA直播</a> 
+            栏目，那里通常汇总了当晚的热门对决。如果你是第一次接触，也可以先花半分钟熟悉页面布局：左侧一般列出赛程，右侧是当前直播入口。整体不复杂，几分钟就能摸清。
+        </div>
+
+        <!-- FAQ 摘要（2个简洁问答） -->
+        <div class="faq-mini">
+            <details>
+                <summary>这个站点的直播源来自哪里？</summary>
+                <div class="answer">
+                    站点聚合了多个公开的赛事转播源，包括部分地方台与网络流。每个源都有独立标签，你可以根据延迟或画质自行挑选。
+                </div>
+            </details>
+            <details>
+                <summary>需要安装播放器或插件吗？</summary>
+                <div class="answer">
+                    通常不需要。大多数直播使用网页播放器（H5），现代浏览器均可直接播放。如果遇到黑屏，可尝试刷新或切换另一个源。
+                </div>
+            </details>
+        </div>
+
+        <!-- 简单页脚 + 再次自然出现链接（但避免重复堆砌） -->
+        <div class="footnote">
+            <span>如果你对赛程或信号有疑问，可以随时回到 <a href="https://sporttv-qq.com">NBA直播</a> 页面查看最新动态。</span>
+            <br>
+            <span style="opacity: 0.5; display: inline-block; margin-top: 0.6rem;">整合信息 · 保持克制 · 祝观赛愉快</span>
+        </div>
+
+    </div> <!-- /card-container -->
+</div> <!-- /page-wrapper -->
+</body>
+</html>
